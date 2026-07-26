@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SmallBrowser (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SmallBrowser (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
