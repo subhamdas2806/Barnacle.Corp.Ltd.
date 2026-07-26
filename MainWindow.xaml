@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Small Browser - WinUI3 + WebView2">
+    Title="SmallBrowser">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +19,7 @@
         <Grid Grid.Row="0" x:Name="AppTitleBar" Height="32" Background="Transparent">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
                 <FontIcon Glyph="&#xE774;" FontSize="14" Margin="0,0,8,0" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
-                <TextBlock Text="SmallBrowser (Low-RAM Shell)" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                <TextBlock Text="SmallBrowser" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
 
