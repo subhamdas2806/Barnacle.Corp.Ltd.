@@ -11,20 +11,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Custom TitleBar Drag Region -->
-        <Grid Grid.Row="0" x:Name="AppTitleBar" Height="32" Background="Transparent">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
-                <FontIcon Glyph="&#xE774;" FontSize="14" Margin="0,0,8,0" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
-                <TextBlock Text="SmallBrowser" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
-
-        <!-- Tab Strip Row -->
-        <TabView Grid.Row="1"
+        <!-- Tab Strip Row at Top -->
+        <TabView Grid.Row="0"
                  x:Name="MainTabView"
                  AddTabButtonClick="MainTabView_AddTabButtonClick"
                  TabCloseRequested="MainTabView_TabCloseRequested"
@@ -34,7 +25,7 @@
         </TabView>
 
         <!-- Toolbar and Browser Viewport -->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -48,7 +39,6 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
@@ -86,26 +76,6 @@
                               Height="20"
                               Margin="8,0,8,0"
                               VerticalAlignment="Center"/>
-
-                <!-- Tab Discard / Hibernation Control Panel -->
-                <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center" Margin="4,0,0,0">
-                    <Button x:Name="DiscardCurrentButton" Click="DiscardCurrentButton_Click" ToolTipService.ToolTip="Hibernate current tab now to free RAM">
-                        <StackPanel Orientation="Horizontal" Spacing="4">
-                            <FontIcon Glyph="&#xE945;" FontSize="12"/>
-                            <TextBlock Text="Sleep Tab" FontSize="11"/>
-                        </StackPanel>
-                    </Button>
-
-                    <ComboBox x:Name="DiscardTimeoutCombo"
-                              SelectionChanged="DiscardTimeoutCombo_SelectionChanged"
-                              Width="130"
-                              ToolTipService.ToolTip="Inactive Tab Discard Timeout">
-                        <ComboBoxItem Content="Discard: 1 min"/>
-                        <ComboBoxItem Content="Discard: 5 mins" IsSelected="True"/>
-                        <ComboBoxItem Content="Discard: 10 mins"/>
-                        <ComboBoxItem Content="Discard: Never"/>
-                    </ComboBox>
-                </StackPanel>
             </Grid>
 
             <!-- Active Tab Content Area -->

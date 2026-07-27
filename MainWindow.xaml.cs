@@ -10,22 +10,11 @@ namespace SmallBrowser
     public sealed partial class MainWindow : Window
     {
         private readonly List<BrowserTab> _tabs = new List<BrowserTab>();
-        private readonly DispatcherTimer _discardTimer = new DispatcherTimer();
-        private TimeSpan _discardTimeout = TimeSpan.FromMinutes(5);
         private BrowserTab? _activeTab;
 
         public MainWindow()
         {
             this.InitializeComponent();
-
-            // Setup Custom TitleBar
-            ExtendsContentIntoTitleBar = true;
-            SetTitleBar(AppTitleBar);
-
-            // Initialize Hibernation Check Timer (runs every 15 seconds)
-            _discardTimer.Interval = TimeSpan.FromSeconds(15);
-            _discardTimer.Tick += DiscardTimer_Tick;
-            _discardTimer.Start();
 
             // Create initial homepage tab
             CreateNewTab("https://www.google.com");
@@ -123,21 +112,29 @@ namespace SmallBrowser
 
         private void MainTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MainTabView.SelectedItem is TabViewItem item && item.Tag is BrowserTab tab)
+            if (MainTabView.SelectedItem is TabViewItem item && item.Tag is BrowserTab selectedTab)
             {
-                _activeTab = tab;
-                tab.LastActiveTime = DateTime.Now;
+                _activeTab = selectedTab;
 
-                // Re-create WebView2 if tab was sleeping/discarded
-                tab.RestoreIfDiscarded();
+                // Auto-sleep ALL inactive tabs immediately upon switching tabs
+                foreach (var tab in _tabs.ToList())
+                {
+                    if (tab != selectedTab && !tab.IsDiscarded)
+                    {
+                        tab.Discard();
+                    }
+                }
+
+                // Restore/wake up selected tab
+                selectedTab.RestoreIfDiscarded();
 
                 // Display active tab's view container
                 TabContentContainer.Children.Clear();
-                TabContentContainer.Children.Add(tab.Container);
+                TabContentContainer.Children.Add(selectedTab.Container);
 
                 // Sync navigation bar UI
-                AddressBar.Text = tab.Url;
-                LoadingRing.IsActive = tab.IsLoading;
+                AddressBar.Text = selectedTab.Url;
+                LoadingRing.IsActive = selectedTab.IsLoading;
                 UpdateNavigationButtonState();
             }
         }
@@ -191,56 +188,6 @@ namespace SmallBrowser
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             ActiveTab?.Stop();
-        }
-
-        private void DiscardCurrentButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (ActiveTab != null)
-            {
-                ActiveTab.Discard();
-                TabContentContainer.Children.Clear();
-            }
-        }
-
-        private void DiscardTimeoutCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DiscardTimeoutCombo.SelectedIndex == 0)
-            {
-                _discardTimeout = TimeSpan.FromMinutes(1);
-            }
-            else if (DiscardTimeoutCombo.SelectedIndex == 1)
-            {
-                _discardTimeout = TimeSpan.FromMinutes(5);
-            }
-            else if (DiscardTimeoutCombo.SelectedIndex == 2)
-            {
-                _discardTimeout = TimeSpan.FromMinutes(10);
-            }
-            else
-            {
-                _discardTimeout = TimeSpan.MaxValue; // Never
-            }
-        }
-
-        private void DiscardTimer_Tick(object? sender, object e)
-        {
-            if (_discardTimeout == TimeSpan.MaxValue) return;
-
-            DateTime now = DateTime.Now;
-            foreach (var tab in _tabs.ToList())
-            {
-                // NEVER discard the currently active tab
-                if (tab == ActiveTab) continue;
-
-                // Skip tabs already discarded
-                if (tab.IsDiscarded) continue;
-
-                // Check inactivity duration
-                if ((now - tab.LastActiveTime) >= _discardTimeout)
-                {
-                    tab.Discard();
-                }
-            }
         }
     }
 }
