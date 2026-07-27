@@ -16,6 +16,8 @@ namespace SmallBrowser
         {
             this.InitializeComponent();
 
+            ExtendsContentIntoTitleBar = true;
+
             // Create initial homepage tab
             CreateNewTab("https://www.google.com");
         }
