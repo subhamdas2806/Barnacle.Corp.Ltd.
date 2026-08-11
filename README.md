@@ -1,59 +1,61 @@
-# SmallBrowser - Minimal Windows Browser Shell
+# Barnacle Corp Ltd. — Windows 95 OS Portfolio Web Application
 
-A bare-bones, ultra-low-RAM desktop browser built with **WinUI 3 (C#)** and **Microsoft WebView2**.
+An authentic, fully interactive retro **Windows 95 Desktop Web Application** created for **Subham Das**. Built with React, Vite, and Web Audio API synthesizer.
 
-Designed with **zero unnecessary background overhead**: no extensions, no password manager, no bookmarks, no history tracking, no telemetry, and no sync services.
-
----
-
-## Key Features
-
-1. **Tab Strip Management**
-   - Create new tabs (`+` button).
-   - Close tabs (`x` button on tab).
-   - Switch between open tabs smoothly.
-   - Each active tab hosts its own isolated `WebView2` instance.
-
-2. **Smart Address Bar Navigation**
-   - Automatically navigates if the input is a valid URL, domain name, localhost, or IP address.
-   - Converts general search queries into Google searches (`https://www.google.com/search?q=...`).
-   - Dynamically displays the current tab's active URL.
-
-3. **Navigation & Loading Controls**
-   - Standard Back, Forward, Reload, and Stop buttons.
-   - Active loading spinner tied directly to WebView2 `NavigationStarting` and `NavigationCompleted` lifecycle events.
-
-4. **Tab Hibernation / RAM Discarding**
-   - Automatically disposes `WebView2` controls and Chromium processes for tabs inactive for N minutes (configurable: 1 min, 5 min, 10 min, or Never).
-   - Retains tab metadata (Title and URL) while hibernated, displaying `[Sleeping]` in the tab header.
-   - Instantly recreates the `WebView2` instance and restores the page state when switching back.
-   - **Never discards the currently active tab.**
-   - Includes a manual **"Sleep Tab"** button to force instant RAM freeing.
-
-5. **Clean Windows Chrome**
-   - Resizable WinUI 3 window with custom title bar.
+Designed as a modular, standalone web application so it can be hosted locally or deployed to Vercel/Netlify, and easily embedded inside a 3D computer monitor scene in Blender / Three.js (e.g. using `CSS3DRenderer` or canvas textures).
 
 ---
 
-## Tech Stack
+## 🖥️ System Features & Apps Included
 
-- **Framework**: WinUI 3 (Windows App SDK 1.5+ / .NET 8)
-- **Engine**: Microsoft.Web.WebView2 (uses system-installed Edge/Chromium runtime)
-- **Language**: C# 12 / .NET 8.0
+1. **Barnacle Corp Ltd. System Explorer (Portfolio App)**
+   - Minimalist centered landing page featuring **BARNACLE SCUM - Corporate Limited** with pixelated dithered typography.
+   - Complete section explorer: `ABOUT`, `EXPERIENCE`, `EDUCATION`, `PROJECTS`, `CERTIFICATIONS`, and `CONTACT`.
+   - Floppy disk header link for instant viewable/printable PDF resume generation.
+
+2. **MS Paint (Paint.exe)**
+   - Complete Win95 paint app featuring Pencil, Brush, Eraser, Fill Bucket, Line, Rectangle, Ellipse, Eyedropper, Text, and 28 Win95 swatches.
+
+3. **Doom (3D Raycaster)**
+   - Custom 3D canvas raycasting shooter game with WASD movement, health, ammo, and shooting.
+
+4. **The Oregon Trail**
+   - Retro text/choice adventure game with travel stats, hunting, resting, and river crossings.
+
+5. **Henordle**
+   - 5-letter retro Wordle game with an interactive Win95 virtual keyboard.
+
+6. **Minesweeper**
+   - Authentic Win95 Minesweeper with smiley status face, mine counter, and timer.
+
+7. **Credits.txt / Notepad**
+   - System overview & developer instructions.
 
 ---
 
-## Building and Running
+## 📦 Project Setup & Local Hosting
 
-### Prerequisites
-- Windows 10/11
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+```bash
+# 1. Install dependencies
+npm install
 
-### Build & Run Commands
-```powershell
-# Restore and build the project
-dotnet build SmallBrowser.csproj -c Release
+# 2. Run local development server
+npm run dev
 
-# Run the executable
-.\bin\Release\net8.0-windows10.0.26100.0\win-x64\SmallBrowser.exe
+# 3. Build for production
+npm run build
 ```
+
+---
+
+## 🕹️ Blender & Three.js 3D Computer Integration Guide
+
+This repository contains **strictly the OS web application layer**. The 3D scene / computer mesh container is kept separate so you can drop your Blender model in whenever ready.
+
+To render this OS on your 3D computer screen in Three.js:
+
+1. Host this project locally (`http://localhost:5173`) or deploy to Vercel / Netlify.
+2. In your Three.js game scene, instantiate a `CSS3DRenderer` alongside your main `WebGLRenderer`.
+3. Create a `CSS3DObject` wrapping an `<iframe>` pointing to your hosted OS URL.
+4. Position and align the `CSS3DObject` plane directly over your 3D monitor screen mesh in Blender.
+5. Enable pointer events on the iframe so players can interact with the desktop directly inside your 3D game environment!

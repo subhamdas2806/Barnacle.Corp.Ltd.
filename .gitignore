@@ -1,54 +1,26 @@
-## .NET / Visual Studio
-[Bb]in/
-[Oo]bj/
-[Dd]ebug/
-[Rr]elease/
-.vs/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-artifacts/
-
-# Build logs
-[Ll]og/
-[Ll]ogs/
+# Logs
+logs
 *.log
-*.binlog
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Test results
-[Tt]est[Rr]esult*/
-*.trx
-*.coverage
-*.coveragexml
+node_modules
+dist
+dist-ssr
+*.local
 
-# NuGet
-*.nupkg
-*.snupkg
-*.nuget.props
-*.nuget.targets
-project.lock.json
-
-# MSIX packaging output
-AppPackages/
-BundleArtifacts/
-*.msix
-*.msixupload
-*.appx
-*.appxbundle
-*.appxupload
-
-# Publish output
-publish/
-*.pubxml
-PublishScripts/
-
-# Code analysis and tooling
-_ReSharper*/
-*.DotSettings.user
-*.dotCover
-.idea/
-
-# Generated files
-Generated\ Files/
-*_wpftmp.csproj
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+bin
+obj

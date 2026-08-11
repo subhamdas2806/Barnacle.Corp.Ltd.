@@ -1,0 +1,530 @@
+:root {
+  --win-bg: #008080;
+  --win-gray: #c0c0c0;
+  --win-light: #ffffff;
+  --win-shadow: #808080;
+  --win-dark: #000000;
+  --win-blue-start: #000080;
+  --win-blue-end: #1084d0;
+  --win-link: #0000ff;
+  --win-link-hover: #ff0000;
+  --font-system: 'MS Sans Serif', Tahoma, 'VT323', Geneva, sans-serif;
+  --font-retro-header: 'Abril Fatface', 'Cooper Black', 'Playfair Display', serif;
+  --font-retro-sub: 'VT323', 'Pixelify Sans', 'Special Elite', monospace;
+  --font-code: 'Chivo Mono', monospace;
+}
+
+/* Pixelated Bitmap Text Distortion Effect */
+.pixel-distort, .retro-subtitle {
+  font-family: var(--font-retro-sub);
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  letter-spacing: 1.2px;
+  text-shadow: 0.6px 0.4px 0px rgba(0, 0, 0, 0.9), -0.4px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-system);
+  background-color: var(--win-bg);
+  color: #000;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3D Bevel Utilities */
+.win-outset {
+  background-color: var(--win-gray);
+  box-shadow: inset 1px 1px #ffffff, inset -1px -1px #000000, inset 2px 2px #dfdfdf, inset -2px -2px #808080;
+}
+
+.win-outset-btn {
+  background-color: var(--win-gray);
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+  cursor: pointer;
+}
+
+.win-outset-btn:active, .win-outset-btn.active {
+  border-color: #000000 #ffffff #ffffff #000000;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #dfdfdf;
+  padding-top: 1px;
+  padding-left: 1px;
+}
+
+.win-inset {
+  background-color: #ffffff;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #ffffff, inset 2px 2px #000000, inset -2px -2px #dfdfdf;
+}
+
+.win-inset-gray {
+  background-color: var(--win-gray);
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #ffffff, inset 2px 2px #000000, inset -2px -2px #dfdfdf;
+}
+
+/* Retro Scrollbars */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: var(--win-gray);
+}
+
+::-webkit-scrollbar-track {
+  background: repeating-conic-gradient(var(--win-gray) 0% 25%, #ffffff 0% 50%) 50% / 2px 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--win-gray);
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+}
+
+::-webkit-scrollbar-button {
+  background: var(--win-gray);
+  border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  width: 16px;
+  height: 16px;
+}
+
+/* Desktop Canvas Container */
+.desktop-container {
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - 32px);
+  background-color: var(--win-bg);
+  overflow: hidden;
+}
+
+/* Desktop Icon Grid */
+.desktop-icons {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 18px;
+  height: calc(100% - 24px);
+  z-index: 1;
+}
+
+.desktop-icon {
+  width: 78px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px;
+  border: 1px solid transparent;
+}
+
+.desktop-icon:hover {
+  border: 1px dotted rgba(255, 255, 255, 0.6);
+}
+
+.desktop-icon.selected {
+  border: 1px dotted #ffffff;
+}
+
+.desktop-icon.selected .icon-title {
+  background-color: var(--win-blue-start);
+  color: #ffffff;
+}
+
+.icon-img {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.5));
+}
+
+.icon-title {
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 1.2;
+  text-shadow: 1px 1px 1px #000;
+  padding: 1px 3px;
+  word-break: break-word;
+}
+
+/* Window Styling - Matching Win95 Authentic Outer Bevel Edge */
+.win-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--win-gray);
+  padding: 3px;
+  border: 1px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080, 3px 3px 8px rgba(0, 0, 0, 0.35);
+  min-width: 280px;
+  min-height: 180px;
+  border-radius: 0;
+}
+
+.win-titlebar {
+  height: 20px;
+  background: #000080;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1px 3px 1px 4px;
+  font-weight: bold;
+  font-size: 11px;
+  margin-bottom: 3px;
+  letter-spacing: 0.5px;
+  cursor: move;
+}
+
+.win-titlebar.inactive {
+  background: #808080;
+  color: #c0c0c0;
+}
+
+.win-title-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.win-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.win-btn-ctrl {
+  width: 16px;
+  height: 14px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  background-color: var(--win-gray);
+  border: 1px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+  cursor: pointer;
+  color: #000000;
+}
+
+.win-btn-ctrl:active {
+  border-color: #000000 #ffffff #ffffff #000000;
+  box-shadow: inset 1px 1px #808080, inset -1px -1px #dfdfdf;
+  padding-top: 1px;
+  padding-left: 1px;
+}
+
+.win-body {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  user-select: text;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  box-shadow: inset 1px 1px #000000, inset -1px -1px #dfdfdf;
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 32px;
+  background-color: var(--win-gray);
+  box-shadow: inset 0 1px #ffffff, inset 0 2px #dfdfdf;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+  z-index: 9999;
+}
+
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.start-flag {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  width: 14px;
+  height: 12px;
+  gap: 1px;
+}
+
+.start-flag span {
+  display: block;
+}
+
+.taskbar-apps {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  margin: 0 8px;
+  overflow-x: auto;
+}
+
+.taskbar-app-btn {
+  height: 24px;
+  min-width: 120px;
+  max-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.system-tray {
+  height: 24px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+/* Start Menu Dropdown */
+.start-menu {
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  width: 220px;
+  background-color: var(--win-gray);
+  box-shadow: inset 1px 1px #ffffff, inset -1px -1px #000000, inset 2px 2px #dfdfdf, inset -2px -2px #808080, 4px 4px 10px rgba(0,0,0,0.5);
+  display: flex;
+  z-index: 10000;
+}
+
+.start-banner {
+  width: 28px;
+  background: linear-gradient(180deg, #000080, #1084d0);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 15px;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 4px;
+  font-family: sans-serif;
+}
+
+.start-banner span {
+  color: #c0c0c0;
+}
+
+.start-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2px 0;
+}
+
+.start-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.start-item:hover {
+  background-color: var(--win-blue-start);
+  color: #ffffff;
+}
+
+.start-divider {
+  height: 1px;
+  background-color: var(--win-shadow);
+  border-bottom: 1px solid #ffffff;
+  margin: 3px 2px;
+}
+
+/* System Explorer / Portfolio Styles */
+.explorer-container {
+  display: flex;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000;
+}
+
+.explorer-sidebar {
+  width: 170px;
+  background-color: #ffffff;
+  border-right: 1px solid #c0c0c0;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: inset -2px 0 0 #dfdfdf;
+}
+
+.explorer-logo {
+  font-family: var(--font-retro-header);
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #000;
+  margin-bottom: 2px;
+}
+
+.explorer-version {
+  font-size: 11px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.explorer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.explorer-nav-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--font-system);
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--win-link);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.explorer-nav-btn:hover {
+  color: var(--win-link-hover);
+}
+
+.explorer-nav-btn.active {
+  color: #000;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.explorer-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.explorer-header-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #808080;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+.resume-download-link {
+  color: var(--win-link);
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.resume-download-link:hover {
+  color: var(--win-link-hover);
+}
+
+.retro-title {
+  font-family: var(--font-retro-header);
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.15;
+  color: #111;
+  margin-bottom: 12px;
+}
+
+.retro-subtitle {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.explorer-footer {
+  height: 22px;
+  background-color: var(--win-gray);
+  border-top: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 11px;
+  color: #444;
+}
+
+/* Contact Form Input Styling */
+.win-input {
+  width: 100%;
+  padding: 4px 8px;
+  font-family: var(--font-system);
+  font-size: 13px;
+  border: none;
+  outline: none;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.win-textarea {
+  width: 100%;
+  height: 120px;
+  padding: 6px 8px;
+  font-family: var(--font-system);
+  font-size: 13px;
+  border: none;
+  outline: none;
+  resize: vertical;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
