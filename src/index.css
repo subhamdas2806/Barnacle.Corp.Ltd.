@@ -8,40 +8,46 @@
   --win-blue-end: #1084d0;
   --win-link: #0000ff;
   --win-link-hover: #ff0000;
-  --font-system: 'MS Sans Serif', Tahoma, 'VT323', Geneva, sans-serif;
+
+  /* Strict Retro Font Combination */
   --font-retro-header: 'Abril Fatface', 'Cooper Black', 'Playfair Display', serif;
   --font-retro-sub: 'VT323', 'Pixelify Sans', 'Special Elite', monospace;
-  --font-code: 'Chivo Mono', monospace;
+  --font-system: 'VT323', 'Pixelify Sans', 'Special Elite', monospace;
+  --font-code: 'VT323', 'Chivo Mono', monospace;
 }
-
-/* Pixelated Bitmap Text Distortion Effect */
-.pixel-distort, .retro-subtitle {
-  font-family: var(--font-retro-sub);
-  -webkit-font-smoothing: none !important;
-  -moz-osx-font-smoothing: unset !important;
-  font-smooth: never !important;
-  letter-spacing: 1.2px;
-  text-shadow: 0.6px 0.4px 0px rgba(0, 0, 0, 0.9), -0.4px 0px 0px rgba(0, 0, 0, 0.4);
-}
-
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   user-select: none;
+  font-family: var(--font-system) !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
 }
 
 html, body, #root {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: var(--font-system);
   background-color: var(--win-bg);
   color: #000;
-  font-size: 13px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+}
+
+/* Headings use the Cooper Black / Abril Fatface font */
+h1, h2, h3, .retro-title, .explorer-logo {
+  font-family: var(--font-retro-header) !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* Subtitles, Paragraphs, Links, and Buttons use the Bitmapped Pixel Serif font */
+p, span, div, a, button, input, textarea, label, li, nav, .retro-subtitle, .pixel-distort {
+  font-family: var(--font-retro-sub) !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
 }
 
 /* 3D Bevel Utilities */
@@ -56,6 +62,8 @@ html, body, #root {
   border-color: #ffffff #000000 #000000 #ffffff;
   box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
   cursor: pointer;
+  font-family: var(--font-retro-sub) !important;
+  font-size: 14px;
 }
 
 .win-outset-btn:active, .win-outset-btn.active {
@@ -160,7 +168,7 @@ html, body, #root {
 
 .icon-title {
   color: #ffffff;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.2;
   text-shadow: 1px 1px 1px #000;
   padding: 1px 3px;
@@ -191,7 +199,7 @@ html, body, #root {
   justify-content: space-between;
   padding: 1px 3px 1px 4px;
   font-weight: bold;
-  font-size: 11px;
+  font-size: 13px;
   margin-bottom: 3px;
   letter-spacing: 0.5px;
   cursor: move;
@@ -219,7 +227,7 @@ html, body, #root {
 .win-btn-ctrl {
   width: 16px;
   height: 14px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -276,7 +284,7 @@ html, body, #root {
   height: 24px;
   padding: 0 8px;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .start-flag {
@@ -307,7 +315,7 @@ html, body, #root {
   align-items: center;
   gap: 6px;
   padding: 0 6px;
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -319,7 +327,7 @@ html, body, #root {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 /* Start Menu Dropdown */
@@ -347,7 +355,6 @@ html, body, #root {
   align-items: center;
   justify-content: flex-end;
   padding: 10px 4px;
-  font-family: sans-serif;
 }
 
 .start-banner span {
@@ -367,7 +374,7 @@ html, body, #root {
   gap: 10px;
   padding: 6px 12px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .start-item:hover {
@@ -402,7 +409,7 @@ html, body, #root {
 }
 
 .explorer-logo {
-  font-family: var(--font-retro-header);
+  font-family: var(--font-retro-header) !important;
   font-size: 26px;
   font-weight: 900;
   line-height: 1.1;
@@ -411,7 +418,7 @@ html, body, #root {
 }
 
 .explorer-version {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   color: #444;
   margin-bottom: 12px;
@@ -427,8 +434,7 @@ html, body, #root {
   background: none;
   border: none;
   text-align: left;
-  font-family: var(--font-system);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: bold;
   color: var(--win-link);
   text-decoration: underline;
@@ -453,7 +459,7 @@ html, body, #root {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -478,7 +484,7 @@ html, body, #root {
 }
 
 .retro-title {
-  font-family: var(--font-retro-header);
+  font-family: var(--font-retro-header) !important;
   font-size: 42px;
   font-weight: 900;
   line-height: 1.15;
@@ -487,9 +493,9 @@ html, body, #root {
 }
 
 .retro-subtitle {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333;
+  font-size: 18px;
+  font-weight: normal;
+  color: #222;
   margin-bottom: 16px;
 }
 
@@ -500,7 +506,7 @@ html, body, #root {
   display: flex;
   align-items: center;
   padding: 0 8px;
-  font-size: 11px;
+  font-size: 13px;
   color: #444;
 }
 
@@ -508,8 +514,7 @@ html, body, #root {
 .win-input {
   width: 100%;
   padding: 4px 8px;
-  font-family: var(--font-system);
-  font-size: 13px;
+  font-size: 14px;
   border: none;
   outline: none;
   margin-top: 4px;
@@ -520,8 +525,7 @@ html, body, #root {
   width: 100%;
   height: 120px;
   padding: 6px 8px;
-  font-family: var(--font-system);
-  font-size: 13px;
+  font-size: 14px;
   border: none;
   outline: none;
   resize: vertical;
