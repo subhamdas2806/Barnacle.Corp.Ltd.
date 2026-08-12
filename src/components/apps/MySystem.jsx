@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { HardDrive, Github, Linkedin, Twitter, Mail, Award, FileCode, Send, CheckCircle2 } from 'lucide-react';
+import { emitBarnacleEvent } from '../../utils/postMessage';
 
-export default function MySystem() {
+export default function MySystem({ isEmbedded = false }) {
   const [activeTab, setActiveTab] = useState('HOME');
   const [formSent, setFormSent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' });
@@ -291,54 +292,43 @@ export default function MySystem() {
         {/* Tab: EXPERIENCE */}
         {activeTab === 'EXPERIENCE' && (
           <div>
-            <h1 className="retro-title" style={{ fontFamily: 'var(--font-retro-header)', fontSize: 44 }}>
-              The Rust Programming Language
+            <h1 className="retro-title" style={{ fontFamily: 'var(--font-retro-header)', fontSize: 40 }}>
+              Artificial Intelligence Developer
             </h1>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
-              <span style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>Open Source Contributor</span>
-              <span style={{ fontSize: 13, fontWeight: 'bold', color: '#444' }}>Oct 2025 – Present</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 16, fontWeight: 'bold', color: '#000080' }}>Fiverr · Freelance (Remote)</span>
+              <span style={{ fontSize: 13, fontWeight: 'bold', color: '#444' }}>Mar 2023 – Jun 2024 · 1 yr 4 mos</span>
             </div>
             <p style={{ marginBottom: 12, lineHeight: 1.6 }}>
-              Diagnosed and resolved 6+ Internal Compiler Errors (ICEs) within the <em>rustc</em> compiler, fixing crashes. Modernized the compiler's test infrastructure by migrating 40+ legacy UI tests to the new framework, reducing manual testing time by ~40%.
+              Created and customized Stable Diffusion models for clients on Fiverr, helping bring creative ideas to life through generative AI.
             </p>
             <div style={{ fontSize: 12, color: '#444', fontWeight: 'bold', marginBottom: 28 }}>
-              Skills: Rust · C++ · Python · Makefile · CI/CD
+              Skills: Stable Diffusion · ComfyUI · Generative AI
             </div>
-
-            <hr style={{ borderColor: '#c0c0c0', margin: '20px 0' }} />
-
-            <h1 className="retro-title" style={{ fontFamily: 'var(--font-retro-header)', fontSize: 44 }}>
-              Campus Mantri
-            </h1>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
-              <span style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>GeeksforGeeks (Part-time)</span>
-              <span style={{ fontSize: 13, fontWeight: 'bold', color: '#444' }}>Aug 2025 – Present</span>
-            </div>
-            <p style={{ marginBottom: 28, lineHeight: 1.6 }}>
-              Spearheading student engagement initiatives to foster a vibrant coding culture on campus. Organizing coding contests and technical workshops to bridge the gap between academic learning and industry standards.
-            </p>
 
             <hr style={{ borderColor: '#c0c0c0', margin: '20px 0' }} />
 
             <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 32, marginBottom: 4 }}>
               Product Manager
             </h2>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: 8 }}>
-              <span>SheCan Foundation (Remote)</span>
-              <span style={{ color: '#555' }}>Aug 2026 – Present</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: 8, flexWrap: 'wrap' }}>
+              <span style={{ color: '#000080' }}>SheCan Foundation (Remote)</span>
+              <span style={{ color: '#555', fontSize: 13 }}>Aug 2026 – Present</span>
             </div>
-            <p style={{ marginBottom: 20 }}>
+            <p style={{ marginBottom: 24, lineHeight: 1.6 }}>
               Driving product strategy and coordinating cross-functional efforts to deliver impact-driven digital solutions.
             </p>
+
+            <hr style={{ borderColor: '#c0c0c0', margin: '20px 0' }} />
 
             <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 32, marginBottom: 4 }}>
               Web Development Intern
             </h2>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: 8 }}>
-              <span>InAmigos Foundation (Remote)</span>
-              <span style={{ color: '#555' }}>Jun – Jul 2026</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: 8, flexWrap: 'wrap' }}>
+              <span style={{ color: '#000080' }}>InAmigos Foundation (Remote)</span>
+              <span style={{ color: '#555', fontSize: 13 }}>Jun – Jul 2026</span>
             </div>
-            <p>
+            <p style={{ lineHeight: 1.6 }}>
               Built and maintained web-based tools and front-end features for digital platforms, collaborating with a remote engineering team.
             </p>
           </div>

@@ -198,10 +198,7 @@ p, span, div, a, button, input, textarea, label, li, nav, .retro-subtitle, .pixe
   align-items: center;
   justify-content: space-between;
   padding: 1px 3px 1px 4px;
-  font-weight: bold;
-  font-size: 13px;
   margin-bottom: 3px;
-  letter-spacing: 0.5px;
   cursor: move;
 }
 
@@ -217,6 +214,17 @@ p, span, div, a, button, input, textarea, label, li, nav, .retro-subtitle, .pixe
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.win-title-left span {
+  font-family: 'MS Sans Serif', Tahoma, 'Pixelify Sans', Geneva, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  letter-spacing: 0.3px;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  color: #ffffff;
 }
 
 .win-controls {

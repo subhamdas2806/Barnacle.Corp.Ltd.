@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Monitor, Gamepad2, Terminal, Cpu, FileText, Trash2, Palette } from 'lucide-react';
 import Window from './components/Window';
 import Taskbar from './components/Taskbar';
@@ -9,6 +9,7 @@ import Henordle from './components/apps/Henordle';
 import Minesweeper from './components/apps/Minesweeper';
 import NotepadCredits from './components/apps/NotepadCredits';
 import PaintApp from './components/apps/PaintApp';
+import EmbeddedPortfolio from './components/EmbeddedPortfolio';
 import { playClickSound, playWin95Startup, playErrorBeep } from './utils/audio';
 
 const DESKTOP_APPS = [
@@ -23,6 +24,7 @@ const DESKTOP_APPS = [
 ];
 
 export default function App() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [openApps, setOpenApps] = useState([
     { id: 'mySystem', title: 'My System', icon: Monitor, minimized: false }
   ]);
@@ -31,6 +33,21 @@ export default function App() {
   const [appZIndices, setAppZIndices] = useState({ mySystem: 10 });
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const isEmbedded = currentPath.startsWith('/embed') || window.location.search.includes('embed=true') || window.location.hash === '#embed';
+
+  // Render Dedicated /embed Route
+  if (isEmbedded) {
+    return <EmbeddedPortfolio />;
+  }
 
   const handleLaunchApp = (appId) => {
     if (!isMuted) playClickSound();

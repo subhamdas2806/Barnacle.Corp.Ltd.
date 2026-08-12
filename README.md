@@ -1,61 +1,65 @@
 # Barnacle Corp Ltd. — Windows 95 OS Portfolio Web Application
 
-An authentic, fully interactive retro **Windows 95 Desktop Web Application** created for **Subham Das**. Built with React, Vite, and Web Audio API synthesizer.
-
-Designed as a modular, standalone web application so it can be hosted locally or deployed to Vercel/Netlify, and easily embedded inside a 3D computer monitor scene in Blender / Three.js (e.g. using `CSS3DRenderer` or canvas textures).
+An authentic, fully interactive retro **Windows 95 Desktop Web Application** created for **Subham Das**. Built with React 18, Vite 5, and Web Audio API synthesizer.
 
 ---
 
-## 🖥️ System Features & Apps Included
+## 🖥️ Dedicated Embedded Route (`/embed`)
 
-1. **Barnacle Corp Ltd. System Explorer (Portfolio App)**
-   - Minimalist centered landing page featuring **BARNACLE SCUM - Corporate Limited** with pixelated dithered typography.
-   - Complete section explorer: `ABOUT`, `EXPERIENCE`, `EDUCATION`, `PROJECTS`, `CERTIFICATIONS`, and `CONTACT`.
-   - Floppy disk header link for instant viewable/printable PDF resume generation.
+This project includes a dedicated **Embedded Route** (`/embed`) specifically designed to be loaded inside an `iframe` or `CSS3DRenderer` surface inside a 3D CRT monitor model in Three.js.
 
-2. **MS Paint (Paint.exe)**
-   - Complete Win95 paint app featuring Pencil, Brush, Eraser, Fill Bucket, Line, Rectangle, Ellipse, Eyedropper, Text, and 28 Win95 swatches.
-
-3. **Doom (3D Raycaster)**
-   - Custom 3D canvas raycasting shooter game with WASD movement, health, ammo, and shooting.
-
-4. **The Oregon Trail**
-   - Retro text/choice adventure game with travel stats, hunting, resting, and river crossings.
-
-5. **Henordle**
-   - 5-letter retro Wordle game with an interactive Win95 virtual keyboard.
-
-6. **Minesweeper**
-   - Authentic Win95 Minesweeper with smiley status face, mine counter, and timer.
-
-7. **Credits.txt / Notepad**
-   - System overview & developer instructions.
+### Key Embedded Features:
+- **Responsive Iframe Container (`100% × 100%`)**: Adapts to 1200×900, 1024×768, 800×600, or any CRT viewport without horizontal scrollbars or unnecessary body margins.
+- **Iframe-Safe Security**: No `X-Frame-Options` or `window.top` lockouts.
+- **Interactive Pointer Events**: Full support for clicking, text selection, hover effects, smooth scrolling, and form inputs.
+- **Clean PostMessage Communication API**: Emits events to the parent Three.js window under namespace `barnacle-portfolio`.
 
 ---
 
-## 📦 Project Setup & Local Hosting
+## 🛠️ Local Development & Testing
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Run local development server
+# 2. Run local dev server
 npm run dev
 
-# 3. Build for production
-npm run build
+# 3. Access URLs:
+# - Normal Desktop OS: http://localhost:5173/
+# - Embedded CRT View:  http://localhost:5173/embed
+# - Iframe Test Rig:   http://localhost:5173/test-iframe.html
 ```
 
 ---
 
-## 🕹️ Blender & Three.js 3D Computer Integration Guide
+## 🕹️ Three.js CRT Integration Guide
 
-This repository contains **strictly the OS web application layer**. The 3D scene / computer mesh container is kept separate so you can drop your Blender model in whenever ready.
+To render `/embed` inside your Three.js 3D computer scene:
 
-To render this OS on your 3D computer screen in Three.js:
+```javascript
+// Example Three.js CSS3DObject setup
+import { CSS3DObject } from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
-1. Host this project locally (`http://localhost:5173`) or deploy to Vercel / Netlify.
-2. In your Three.js game scene, instantiate a `CSS3DRenderer` alongside your main `WebGLRenderer`.
-3. Create a `CSS3DObject` wrapping an `<iframe>` pointing to your hosted OS URL.
-4. Position and align the `CSS3DObject` plane directly over your 3D monitor screen mesh in Blender.
-5. Enable pointer events on the iframe so players can interact with the desktop directly inside your 3D game environment!
+const iframe = document.createElement('iframe');
+iframe.src = 'http://localhost:5173/embed';
+iframe.style.width = '1200px';
+iframe.style.height = '900px';
+iframe.style.border = 'none';
+
+const cssObject = new CSS3DObject(iframe);
+// Position & align cssObject directly over your 3D CRT screen mesh
+scene.add(cssObject);
+
+// Listen for events from Barnacle Portfolio
+window.addEventListener('message', (event) => {
+  if (event.data && event.data.source === 'barnacle-portfolio') {
+    console.log('Event from Barnacle Portfolio:', event.data.event, event.data.payload);
+  }
+});
+```
+
+---
+
+## 🛑 Repository Policy Note
+- Remote Git updates are performed strictly when explicitly requested by the project owner. All modifications are compiled and verified locally.

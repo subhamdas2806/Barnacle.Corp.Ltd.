@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Three.js CRT Iframe Embed Test — Barnacle Corp Ltd.</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #1a1a1a;
+        color: #ffffff;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 { font-size: 20px; margin-bottom: 8px; color: #52d052; }
+      p { font-size: 13px; color: #aaa; margin-bottom: 16px; }
+      .test-container {
+        border: 4px solid #333;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        background: #000;
+        margin-bottom: 20px;
+      }
+      iframe {
+        width: 1200px;
+        height: 900px;
+        border: none;
+      }
+      .controls {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      button {
+        padding: 6px 14px;
+        background: #333;
+        color: #fff;
+        border: 1px solid #555;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      button:hover { background: #555; }
+    </style>
+  </head>
+  <body>
+    <h1>Three.js CRT Monitor Iframe Embed Test</h1>
+    <p>Simulates the future Three.js CSS3DRenderer iframe embedding at various CRT aspect ratios (1200×900, 1024×768, 800×600).</p>
+
+    <div className="controls">
+      <button onclick="resizeFrame(1200, 900)">1200 × 900 (4:3 CRT)</button>
+      <button onclick="resizeFrame(1024, 768)">1024 × 768</button>
+      <button onclick="resizeFrame(800, 600)">800 × 600</button>
+    </div>
+
+    <div className="test-container">
+      <iframe id="embed-frame" src="/embed"></iframe>
+    </div>
+
+    <script>
+      function resizeFrame(w, h) {
+        const frame = document.getElementById('embed-frame');
+        frame.style.width = w + 'px';
+        frame.style.height = h + 'px';
+      }
+
+      window.addEventListener('message', (e) => {
+        if (e.data && e.data.source === 'barnacle-portfolio') {
+          console.log('[Parent Frame Received Event]:', e.data);
+        }
+      });
+    </script>
+  </body>
+</html>
