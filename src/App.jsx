@@ -13,13 +13,13 @@ import EmbeddedPortfolio from './components/EmbeddedPortfolio';
 import { playClickSound, playWin95Startup, playErrorBeep } from './utils/audio';
 
 const DESKTOP_APPS = [
-  { id: 'mySystem', title: 'My System', icon: Monitor, component: MySystem, defaultPos: { x: 60, y: 40 }, defaultSize: { width: 780, height: 560 } },
-  { id: 'paint', title: 'Paint', icon: Palette, component: PaintApp, defaultPos: { x: 100, y: 70 }, defaultSize: { width: 720, height: 530 } },
-  { id: 'oregon', title: 'The Oregon Trail', icon: Terminal, component: OregonTrail, defaultPos: { x: 140, y: 100 }, defaultSize: { width: 560, height: 460 } },
-  { id: 'doom', title: 'Doom', icon: Gamepad2, component: DoomGame, defaultPos: { x: 180, y: 60 }, defaultSize: { width: 520, height: 420 } },
-  { id: 'henordle', title: 'Henordle', icon: Cpu, component: Henordle, defaultPos: { x: 220, y: 100 }, defaultSize: { width: 440, height: 480 } },
-  { id: 'minesweeper', title: 'Minesweeper', icon: Gamepad2, component: Minesweeper, defaultPos: { x: 260, y: 120 }, defaultSize: { width: 280, height: 340 } },
-  { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 140, y: 140 }, defaultSize: { width: 500, height: 400 } },
+  { id: 'mySystem', title: 'My System', icon: Monitor, component: MySystem, defaultPos: { x: 30, y: 20 }, defaultSize: { width: 680, height: 480 } },
+  { id: 'paint', title: 'Paint', icon: Palette, component: PaintApp, defaultPos: { x: 50, y: 40 }, defaultSize: { width: 640, height: 460 } },
+  { id: 'oregon', title: 'The Oregon Trail', icon: Terminal, component: OregonTrail, defaultPos: { x: 70, y: 60 }, defaultSize: { width: 540, height: 420 } },
+  { id: 'doom', title: 'Doom', icon: Gamepad2, component: DoomGame, defaultPos: { x: 90, y: 40 }, defaultSize: { width: 500, height: 400 } },
+  { id: 'henordle', title: 'Henordle', icon: Cpu, component: Henordle, defaultPos: { x: 110, y: 50 }, defaultSize: { width: 420, height: 440 } },
+  { id: 'minesweeper', title: 'Minesweeper', icon: Gamepad2, component: Minesweeper, defaultPos: { x: 130, y: 60 }, defaultSize: { width: 280, height: 340 } },
+  { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 80, y: 80 }, defaultSize: { width: 480, height: 380 } },
   { id: 'trash', title: 'Recycle Bin', icon: Trash2, isSystemBin: true }
 ];
 
@@ -118,7 +118,7 @@ export default function App() {
   };
 
   return (
-    <div className="desktop-container" onClick={() => setSelectedIcon(null)}>
+    <div className="desktop-container aspect-contained" onClick={() => setSelectedIcon(null)}>
       {/* Desktop Grid Icons */}
       <div className="desktop-icons">
         {DESKTOP_APPS.map((app) => {

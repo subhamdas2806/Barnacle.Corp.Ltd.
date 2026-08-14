@@ -220,7 +220,7 @@ export default function MySystem({ isEmbedded = false }) {
             </p>
 
             <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 28, marginBottom: 14 }}>About Me</h2>
-            
+
             <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 24 }}>
               <div
                 className="win-outset"
