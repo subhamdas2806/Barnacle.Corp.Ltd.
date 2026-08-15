@@ -11,7 +11,8 @@ import {
   Mute,
   Unmute,
   MsDos,
-  HelpBook
+  HelpBook,
+  Shell3240
 } from '@react95/icons';
 import { playClickSound, playWin95Startup, playErrorBeep } from '../utils/audio';
 
@@ -75,26 +76,13 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
             fontWeight: 'bold',
             display: 'flex',
             alignItems: 'center',
-            gap: 6,
+            gap: 4,
             height: 30,
-            marginRight: 6
+            marginRight: 6,
+            padding: '0 6px'
           }}
         >
-          {/* Win95 4-color Logo Badge */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              width: 14,
-              height: 12,
-              gap: 1
-            }}
-          >
-            <span style={{ backgroundColor: '#ff4b4b', display: 'block' }}></span>
-            <span style={{ backgroundColor: '#52d052', display: 'block' }}></span>
-            <span style={{ backgroundColor: '#0084ff', display: 'block' }}></span>
-            <span style={{ backgroundColor: '#ffd700', display: 'block' }}></span>
-          </div>
+          <Shell3240 variant="16x16_4" style={{ width: 16, height: 16 }} />
           <span>Start</span>
         </Button>
 
@@ -135,7 +123,7 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
                   textOverflow: 'ellipsis'
                 }}
               >
-                {IconComp && typeof IconComp === 'function' && (
+                {IconComp && (
                   <IconComp style={{ width: 16, height: 16, flexShrink: 0 }} />
                 )}
                 <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{app.title}</span>

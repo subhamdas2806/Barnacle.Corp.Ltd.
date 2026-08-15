@@ -169,9 +169,7 @@ function InnerApp() {
               onDoubleClick={() => handleLaunchApp(app.id)}
             >
               <div className="icon-img">
-                {IconComp && typeof IconComp === 'function' ? (
-                  <IconComp style={{ width: 34, height: 34 }} />
-                ) : null}
+                {IconComp && <IconComp style={{ width: 34, height: 34 }} />}
               </div>
               <div className="icon-title">{app.title}</div>
             </div>
