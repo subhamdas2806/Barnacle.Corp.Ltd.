@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TARGET = 'DELTA';
+const TARGET = 'PIXEL';
 
 export default function Henordle() {
   const [guesses, setGuesses] = useState([]);
@@ -71,12 +71,12 @@ export default function Henordle() {
             You win!
           </h2>
           <p style={{ fontSize: 16, color: '#333333', margin: 0 }}>
-            Thanks for playing! Remember: the word is always "DELTA"
+            Thanks for playing! Remember: the word is always "PIXEL"
           </p>
 
           {/* Green Answer Tiles */}
           <div style={{ display: 'flex', gap: 8, margin: '12px 0' }}>
-            {['D', 'E', 'L', 'T', 'A'].map((letter, idx) => (
+            {['P', 'I', 'X', 'E', 'L'].map((letter, idx) => (
               <div
                 key={idx}
                 className="win-inset"
@@ -109,7 +109,7 @@ export default function Henordle() {
       ) : (
         <>
           <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 28, fontWeight: 900, marginBottom: 12 }}>
-            Wordle v1.0
+            Wordle
           </h2>
 
           {/* Word Grid */}

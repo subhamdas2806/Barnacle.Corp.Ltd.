@@ -8,10 +8,11 @@ import {
   Winmine1,
   FileText,
   Progman13,
-  FolderOpen,
+  HelpBook,
   MsDos,
   Progman24,
-  Appwiz1500
+  Appwiz1500,
+  CdMusic
 } from '@react95/icons';
 
 import Window from './components/Window';
@@ -26,6 +27,7 @@ import PaintApp from './components/apps/PaintApp';
 import EmbeddedPortfolio from './components/EmbeddedPortfolio';
 import PhotosApp from './components/apps/PhotosApp';
 import ArtApp from './components/apps/ArtApp';
+import MusicApp from './components/apps/MusicApp';
 import { playClickSound, playWin95Startup, playErrorBeep } from './utils/audio';
 
 const GlobalStyles = createGlobalStyle`
@@ -38,12 +40,13 @@ const GlobalStyles = createGlobalStyle`
 const DESKTOP_APPS = [
   { id: 'mySystem', title: 'My System', icon: Computer, component: MySystem, defaultPos: { x: 30, y: 20 }, defaultSize: { width: 680, height: 480 } },
   { id: 'photos', title: 'Photos', icon: Progman13, component: PhotosApp, defaultPos: { x: 50, y: 30 }, defaultSize: { width: 640, height: 480 } },
-  { id: 'artwork', title: 'Artbook', icon: FolderOpen, component: ArtApp, defaultPos: { x: 70, y: 40 }, defaultSize: { width: 640, height: 480 } },
+  { id: 'artwork', title: 'Artbook', icon: HelpBook, component: ArtApp, defaultPos: { x: 70, y: 40 }, defaultSize: { width: 640, height: 480 } },
   { id: 'paint', title: 'Paint', icon: Mspaint, component: PaintApp, defaultPos: { x: 90, y: 50 }, defaultSize: { width: 640, height: 460 } },
   { id: 'minesweeper', title: 'Minesweeper', icon: Winmine1, component: Minesweeper, defaultPos: { x: 120, y: 60 }, defaultSize: { width: 280, height: 340 } },
   { id: 'doom', title: 'Doom', icon: MsDos, component: DoomGame, defaultPos: { x: 60, y: 20 }, defaultSize: { width: 660, height: 470 } },
   { id: 'oregon', title: 'Oregon Trail', icon: Progman24, component: OregonTrail, defaultPos: { x: 160, y: 50 }, defaultSize: { width: 540, height: 420 } },
   { id: 'henordle', title: 'Wordle', icon: Appwiz1500, component: Henordle, defaultPos: { x: 180, y: 20 }, defaultSize: { width: 440, height: 580 } },
+  { id: 'music', title: 'Music Player', icon: CdMusic, component: MusicApp, defaultPos: { x: 200, y: 30 }, defaultSize: { width: 380, height: 520 } },
   { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 100, y: 80 }, defaultSize: { width: 480, height: 380 } }
 ];
 
