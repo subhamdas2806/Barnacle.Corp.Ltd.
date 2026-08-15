@@ -9,11 +9,14 @@ import {
   FileText,
   Progman13,
   HelpBook,
-  MsDos,
   Progman24,
   Appwiz1500,
   CdMusic
 } from '@react95/icons';
+
+const DoomIcon = () => (
+  <img src="/doom-icon.png" width={34} height={34} style={{ imageRendering: 'pixelated', display: 'block' }} alt="Doom" />
+);
 
 import Window from './components/Window';
 import Taskbar from './components/Taskbar';
@@ -43,7 +46,7 @@ const DESKTOP_APPS = [
   { id: 'artwork', title: 'Artbook', icon: HelpBook, component: ArtApp, defaultPos: { x: 70, y: 40 }, defaultSize: { width: 640, height: 480 } },
   { id: 'paint', title: 'Paint', icon: Mspaint, component: PaintApp, defaultPos: { x: 90, y: 50 }, defaultSize: { width: 640, height: 460 } },
   { id: 'minesweeper', title: 'Minesweeper', icon: Winmine1, component: Minesweeper, defaultPos: { x: 120, y: 60 }, defaultSize: { width: 280, height: 340 } },
-  { id: 'doom', title: 'Doom', icon: MsDos, component: DoomGame, defaultPos: { x: 60, y: 20 }, defaultSize: { width: 660, height: 470 } },
+  { id: 'doom', title: 'Doom', icon: DoomIcon, component: DoomGame, defaultPos: { x: 60, y: 20 }, defaultSize: { width: 660, height: 470 } },
   { id: 'oregon', title: 'Oregon Trail', icon: Progman24, component: OregonTrail, defaultPos: { x: 160, y: 50 }, defaultSize: { width: 540, height: 420 } },
   { id: 'henordle', title: 'Wordle', icon: Appwiz1500, component: Henordle, defaultPos: { x: 180, y: 20 }, defaultSize: { width: 440, height: 580 } },
   { id: 'music', title: 'Music Player', icon: CdMusic, component: MusicApp, defaultPos: { x: 200, y: 30 }, defaultSize: { width: 380, height: 520 } },
