@@ -109,7 +109,7 @@ export default function Henordle() {
       ) : (
         <>
           <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 28, fontWeight: 900, marginBottom: 12 }}>
-            Henordle v1.0
+            Wordle v1.0
           </h2>
 
           {/* Word Grid */}

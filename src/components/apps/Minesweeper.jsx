@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Drvspace7 } from '@react95/icons';
 
 const ROWS = 9;
 const COLS = 9;
@@ -130,8 +131,8 @@ export default function Minesweeper() {
             {minesLeft.toString().padStart(3, '0')}
           </div>
 
-          <button className="win-outset-btn" style={{ width: 28, height: 28, fontSize: 16 }} onClick={initBoard}>
-            {gameState === 'PLAYING' ? '🙂' : gameState === 'WON' ? '😎' : '😵'}
+          <button className="win-outset-btn" style={{ width: 28, height: 28, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={initBoard}>
+            <Drvspace7 variant="32x32_4" style={{ width: 22, height: 22 }} />
           </button>
 
           <div className="win-inset" style={{ background: '#000', color: '#ff0000', fontFamily: 'monospace', fontSize: 20, fontWeight: 'bold', width: 48, textAlign: 'center' }}>
