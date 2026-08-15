@@ -34,9 +34,9 @@ export default function ArtApp() {
       {/* Main Content Area */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', padding: 6, gap: 6 }}>
         {/* Left Thumbnails List */}
-        <div style={{ width: 220, display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontSize: 12, marginBottom: 4, fontWeight: 'bold' }}>Art Gallery:</span>
-          <ScrollView style={{ flex: 1, background: '#ffffff' }}>
+        <div style={{ width: 220, display: 'flex', flexDirection: 'column', minHeight: 0, height: '100%' }}>
+          <span style={{ fontSize: 12, marginBottom: 4, fontWeight: 'bold', flexShrink: 0 }}>Art Gallery:</span>
+          <div style={{ flex: 1, minHeight: 0, overflow: 'auto', background: '#ffffff', border: '2px solid', borderColor: '#808080 #ffffff #ffffff #808080', boxShadow: 'inset 1px 1px #000, inset -1px -1px #dfdfdf' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: 4 }}>
               {artEntries.length === 0 ? (
                 <div style={{ padding: 12, fontSize: 12, color: '#777', textAlign: 'center' }}>
@@ -80,7 +80,7 @@ export default function ArtApp() {
                 })
               )}
             </div>
-          </ScrollView>
+          </div>
         </div>
 
         {/* Right Artwork Canvas Previewer */}

@@ -54,12 +54,14 @@ export default function Henordle() {
       style={{
         background: '#ffffff',
         height: '100%',
-        padding: 20,
+        padding: '16px 20px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'var(--font-system)'
+        justifyContent: 'flex-start',
+        fontFamily: 'var(--font-system)',
+        overflow: 'auto',
+        boxSizing: 'border-box'
       }}
     >
       {/* Game Over / Win View (Matching Screenshot 1) */}

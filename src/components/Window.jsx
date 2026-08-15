@@ -23,9 +23,25 @@ export default function Window({
   const [isDragging, setIsDragging] = useState(false);
   const [ghostPos, setGhostPos] = useState(defaultPos);
   const dragStartRef = useRef({ mouseX: 0, mouseY: 0, posX: 0, posY: 0 });
+  const windowRef = useRef(null);
+
+  const getContainerBounds = () => {
+    // The container is #root — get its bounding rect
+    const root = document.getElementById('root');
+    if (!root) return { width: window.innerWidth, height: window.innerHeight };
+    const rect = root.getBoundingClientRect();
+    return { width: rect.width, height: rect.height };
+  };
+
+  const clampPos = (x, y) => {
+    const { width: cw, height: ch } = getContainerBounds();
+    const TASKBAR_HEIGHT = 32;
+    const clampedX = Math.max(0, Math.min(x, cw - defaultSize.width));
+    const clampedY = Math.max(0, Math.min(y, ch - TASKBAR_HEIGHT - 24)); // keep titlebar visible
+    return { x: clampedX, y: clampedY };
+  };
 
   const handleMouseDown = (e) => {
-    // Only left click initiates drag
     if (e.button !== 0) return;
     onFocus(id);
     setIsDragging(true);
@@ -44,9 +60,10 @@ export default function Window({
     const handleMouseMove = (e) => {
       const deltaX = e.clientX - dragStartRef.current.mouseX;
       const deltaY = e.clientY - dragStartRef.current.mouseY;
-      const nextX = Math.max(0, dragStartRef.current.posX + deltaX);
-      const nextY = Math.max(0, dragStartRef.current.posY + deltaY);
-      setGhostPos({ x: nextX, y: nextY });
+      const rawX = dragStartRef.current.posX + deltaX;
+      const rawY = dragStartRef.current.posY + deltaY;
+      const clamped = clampPos(rawX, rawY);
+      setGhostPos(clamped);
     };
 
     const handleMouseUp = () => {
@@ -67,6 +84,7 @@ export default function Window({
     <>
       {/* Actual Window */}
       <div
+        ref={windowRef}
         onMouseDown={() => onFocus(id)}
         style={{
           position: 'absolute',
