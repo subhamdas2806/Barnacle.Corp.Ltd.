@@ -7,7 +7,7 @@ import {
   Mspaint,
   Winmine1,
   FileText,
-  MediaCd,
+  Progman13,
   FolderOpen,
   MsDos,
   Progman24,
@@ -37,11 +37,11 @@ const GlobalStyles = createGlobalStyle`
 
 const DESKTOP_APPS = [
   { id: 'mySystem', title: 'My System', icon: Computer, component: MySystem, defaultPos: { x: 30, y: 20 }, defaultSize: { width: 680, height: 480 } },
-  { id: 'photos', title: 'Photos', icon: MediaCd, component: PhotosApp, defaultPos: { x: 50, y: 30 }, defaultSize: { width: 640, height: 480 } },
+  { id: 'photos', title: 'Photos', icon: Progman13, component: PhotosApp, defaultPos: { x: 50, y: 30 }, defaultSize: { width: 640, height: 480 } },
   { id: 'artwork', title: 'Artbook', icon: FolderOpen, component: ArtApp, defaultPos: { x: 70, y: 40 }, defaultSize: { width: 640, height: 480 } },
   { id: 'paint', title: 'Paint', icon: Mspaint, component: PaintApp, defaultPos: { x: 90, y: 50 }, defaultSize: { width: 640, height: 460 } },
   { id: 'minesweeper', title: 'Minesweeper', icon: Winmine1, component: Minesweeper, defaultPos: { x: 120, y: 60 }, defaultSize: { width: 280, height: 340 } },
-  { id: 'doom', title: 'Doom', icon: MsDos, component: DoomGame, defaultPos: { x: 140, y: 40 }, defaultSize: { width: 500, height: 400 } },
+  { id: 'doom', title: 'Doom', icon: MsDos, component: DoomGame, defaultPos: { x: 60, y: 20 }, defaultSize: { width: 660, height: 470 } },
   { id: 'oregon', title: 'Oregon Trail', icon: Progman24, component: OregonTrail, defaultPos: { x: 160, y: 50 }, defaultSize: { width: 540, height: 420 } },
   { id: 'henordle', title: 'Wordle', icon: Appwiz1500, component: Henordle, defaultPos: { x: 180, y: 20 }, defaultSize: { width: 440, height: 580 } },
   { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 100, y: 80 }, defaultSize: { width: 480, height: 380 } }
