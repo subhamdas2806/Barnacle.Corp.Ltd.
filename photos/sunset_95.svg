@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff7e5f" />
+      <stop offset="40%" stop-color="#feb47b" />
+      <stop offset="80%" stop-color="#764ba2" />
+      <stop offset="100%" stop-color="#2c3e50" />
+    </linearGradient>
+    <linearGradient id="sun" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffee55" />
+      <stop offset="100%" stop-color="#ff007f" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#sky)" />
+  <circle cx="200" cy="200" r="90" fill="url(#sun)" />
+  <!-- Sun stripes -->
+  <line x1="100" y1="180" x2="300" y2="180" stroke="#764ba2" stroke-width="4" />
+  <line x1="100" y1="195" x2="300" y2="195" stroke="#764ba2" stroke-width="6" />
+  <line x1="100" y1="215" x2="300" y2="215" stroke="#764ba2" stroke-width="8" />
+  <line x1="100" y1="240" x2="300" y2="240" stroke="#2c3e50" stroke-width="12" />
+  <!-- Mountains -->
+  <polygon points="40,320 150,220 240,320" fill="#201135" />
+  <polygon points="180,320 280,210 380,320" fill="#150826" />
+  <!-- Grid ground -->
+  <rect y="310" width="400" height="90" fill="#0d0417" />
+  <line x1="0" y1="330" x2="400" y2="330" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="0" y1="355" x2="400" y2="355" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.8"/>
+  <line x1="0" y1="385" x2="400" y2="385" stroke="#00f0ff" stroke-width="2" stroke-opacity="1"/>
+  <!-- Perspective lines -->
+  <line x1="200" y1="310" x2="200" y2="400" stroke="#ff007f" stroke-width="1.5"/>
+  <line x1="200" y1="310" x2="100" y2="400" stroke="#ff007f" stroke-width="1.5"/>
+  <line x1="200" y1="310" x2="300" y2="400" stroke="#ff007f" stroke-width="1.5"/>
+  <line x1="200" y1="310" x2="0" y2="390" stroke="#ff007f" stroke-width="1.5"/>
+  <line x1="200" y1="310" x2="400" y2="390" stroke="#ff007f" stroke-width="1.5"/>
+  <text x="200" y="70" font-family="'Courier New', monospace" font-size="22" font-weight="bold" fill="#00ffff" text-anchor="middle" letter-spacing="4">RETRO_SUNSET.JPG</text>
+</svg>

@@ -1,5 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Gamepad2, Terminal, Cpu, FileText, Trash2, Palette } from 'lucide-react';
+import { styleReset } from 'react95';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import original from 'react95/dist/themes/original';
+import {
+  Computer,
+  Mspaint,
+  Winmine1,
+  FileText,
+  MediaCd,
+  FolderOpen,
+  RecycleEmpty,
+  MsDos,
+  Progman24,
+  Appwiz1500
+} from '@react95/icons';
+
 import Window from './components/Window';
 import Taskbar from './components/Taskbar';
 import MySystem from './components/apps/MySystem';
@@ -10,23 +25,43 @@ import Minesweeper from './components/apps/Minesweeper';
 import NotepadCredits from './components/apps/NotepadCredits';
 import PaintApp from './components/apps/PaintApp';
 import EmbeddedPortfolio from './components/EmbeddedPortfolio';
+import PhotosApp from './components/apps/PhotosApp';
+import ArtApp from './components/apps/ArtApp';
 import { playClickSound, playWin95Startup, playErrorBeep } from './utils/audio';
 
+const GlobalStyles = createGlobalStyle`
+  ${styleReset}
+  body {
+    font-family: 'ms_sans_serif', 'Segoe UI', Tahoma, sans-serif;
+  }
+`;
+
 const DESKTOP_APPS = [
-  { id: 'mySystem', title: 'My System', icon: Monitor, component: MySystem, defaultPos: { x: 30, y: 20 }, defaultSize: { width: 680, height: 480 } },
-  { id: 'paint', title: 'Paint', icon: Palette, component: PaintApp, defaultPos: { x: 50, y: 40 }, defaultSize: { width: 640, height: 460 } },
-  { id: 'oregon', title: 'The Oregon Trail', icon: Terminal, component: OregonTrail, defaultPos: { x: 70, y: 60 }, defaultSize: { width: 540, height: 420 } },
-  { id: 'doom', title: 'Doom', icon: Gamepad2, component: DoomGame, defaultPos: { x: 90, y: 40 }, defaultSize: { width: 500, height: 400 } },
-  { id: 'henordle', title: 'Henordle', icon: Cpu, component: Henordle, defaultPos: { x: 110, y: 50 }, defaultSize: { width: 420, height: 440 } },
-  { id: 'minesweeper', title: 'Minesweeper', icon: Gamepad2, component: Minesweeper, defaultPos: { x: 130, y: 60 }, defaultSize: { width: 280, height: 340 } },
-  { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 80, y: 80 }, defaultSize: { width: 480, height: 380 } },
-  { id: 'trash', title: 'Recycle Bin', icon: Trash2, isSystemBin: true }
+  { id: 'mySystem', title: 'My System', icon: Computer, component: MySystem, defaultPos: { x: 30, y: 20 }, defaultSize: { width: 680, height: 480 } },
+  { id: 'photos', title: 'Photos', icon: MediaCd, component: PhotosApp, defaultPos: { x: 50, y: 30 }, defaultSize: { width: 640, height: 480 } },
+  { id: 'artwork', title: 'Artworks', icon: FolderOpen, component: ArtApp, defaultPos: { x: 70, y: 40 }, defaultSize: { width: 640, height: 480 } },
+  { id: 'paint', title: 'Paint', icon: Mspaint, component: PaintApp, defaultPos: { x: 90, y: 50 }, defaultSize: { width: 640, height: 460 } },
+  { id: 'minesweeper', title: 'Minesweeper', icon: Winmine1, component: Minesweeper, defaultPos: { x: 120, y: 60 }, defaultSize: { width: 280, height: 340 } },
+  { id: 'doom', title: 'Doom', icon: MsDos, component: DoomGame, defaultPos: { x: 140, y: 40 }, defaultSize: { width: 500, height: 400 } },
+  { id: 'oregon', title: 'Oregon Trail', icon: Progman24, component: OregonTrail, defaultPos: { x: 160, y: 50 }, defaultSize: { width: 540, height: 420 } },
+  { id: 'henordle', title: 'Henordle', icon: Appwiz1500, component: Henordle, defaultPos: { x: 180, y: 60 }, defaultSize: { width: 420, height: 440 } },
+  { id: 'credits', title: 'Credits.txt', icon: FileText, component: NotepadCredits, defaultPos: { x: 100, y: 80 }, defaultSize: { width: 480, height: 380 } },
+  { id: 'trash', title: 'Recycle Bin', icon: RecycleEmpty, isSystemBin: true }
 ];
 
 export default function App() {
+  return (
+    <ThemeProvider theme={original}>
+      <GlobalStyles />
+      <InnerApp />
+    </ThemeProvider>
+  );
+}
+
+function InnerApp() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [openApps, setOpenApps] = useState([
-    { id: 'mySystem', title: 'My System', icon: Monitor, minimized: false }
+    { id: 'mySystem', title: 'My System', icon: Computer, minimized: false }
   ]);
   const [activeAppId, setActiveAppId] = useState('mySystem');
   const [topZIndex, setTopZIndex] = useState(10);
@@ -44,7 +79,6 @@ export default function App() {
 
   const isEmbedded = currentPath.startsWith('/embed') || window.location.search.includes('embed=true') || window.location.hash === '#embed';
 
-  // Render Dedicated /embed Route
   if (isEmbedded) {
     return <EmbeddedPortfolio />;
   }
@@ -135,7 +169,9 @@ export default function App() {
               onDoubleClick={() => handleLaunchApp(app.id)}
             >
               <div className="icon-img">
-                <IconComp size={34} color={app.id === 'trash' ? '#666' : '#ffffff'} />
+                {IconComp && typeof IconComp === 'function' ? (
+                  <IconComp style={{ width: 34, height: 34 }} />
+                ) : null}
               </div>
               <div className="icon-title">{app.title}</div>
             </div>
