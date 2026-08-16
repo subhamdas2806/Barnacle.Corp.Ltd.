@@ -54,49 +54,49 @@ export default function Henordle() {
       style={{
         background: '#ffffff',
         height: '100%',
-        padding: '16px 20px',
+        padding: '10px 20px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
         fontFamily: 'var(--font-system)',
-        overflow: 'auto',
+        overflow: 'hidden',
         boxSizing: 'border-box'
       }}
     >
-      {/* Game Over / Win View (Matching Screenshot 1) */}
-      {status === 'WON' ? (
-        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-          <h2 style={{ fontFamily: 'var(--font-system)', fontSize: 32, fontWeight: 'bold', color: '#000000', margin: 0 }}>
-            You win!
-          </h2>
-          <p style={{ fontSize: 16, color: '#333333', margin: 0 }}>
-            Thanks for playing! Remember: the word is always "PIXEL"
-          </p>
-
-          {/* Green Answer Tiles */}
-          <div style={{ display: 'flex', gap: 8, margin: '12px 0' }}>
-            {['P', 'I', 'X', 'E', 'L'].map((letter, idx) => (
-              <div
-                key={idx}
-                className="win-inset"
-                style={{
-                  width: 44,
-                  height: 44,
-                  backgroundColor: '#8ed98c',
-                  border: '1px solid #558b53',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 22,
-                  fontWeight: 'bold',
-                  color: '#000000'
-                }}
-              >
-                {letter}
-              </div>
-            ))}
-          </div>
+      {/* Game Over / Win View (No Grid or Keyboard) */}
+      {status !== 'PLAYING' ? (
+        <div
+          style={{
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 16,
+            textAlign: 'center'
+          }}
+        >
+          {status === 'WON' ? (
+            <>
+              <h2 style={{ fontFamily: 'var(--font-system)', fontSize: 32, fontWeight: 'bold', color: '#000000', margin: 0 }}>
+                You win!
+              </h2>
+              <p style={{ fontSize: 16, color: '#333333', margin: 0 }}>
+                Thanks for playing! Remember: the word is always "PIXEL"
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 style={{ fontFamily: 'var(--font-system)', fontSize: 32, fontWeight: 'bold', color: '#cc0000', margin: 0 }}>
+                Game Over!
+              </h2>
+              <p style={{ fontSize: 16, color: '#333333', margin: 0 }}>
+                The word was SCUM
+              </p>
+            </>
+          )}
 
           <button
             className="win-outset-btn"
@@ -108,18 +108,27 @@ export default function Henordle() {
         </div>
       ) : (
         <>
-          <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 28, fontWeight: 900, marginBottom: 12 }}>
+          <h2 style={{ fontFamily: 'var(--font-retro-header)', fontSize: 28, fontWeight: 900, marginBottom: 8 }}>
             Wordle
           </h2>
 
-          {/* Word Grid */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 16 }}>
+          {/* Word Grid — flex-fills the window so no blank space remains */}
+          <div
+            style={{
+              flex: 1,
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 5,
+              minHeight: 0
+            }}
+          >
             {[0, 1, 2, 3, 4, 5].map((rowIdx) => {
               const word = guesses[rowIdx] || (rowIdx === guesses.length ? currentGuess : '');
               const isSubmitted = rowIdx < guesses.length;
 
               return (
-                <div key={rowIdx} style={{ display: 'flex', gap: 6 }}>
+                <div key={rowIdx} style={{ flex: 1, display: 'flex', gap: 6, minHeight: 0 }}>
                   {[0, 1, 2, 3, 4].map((colIdx) => {
                     const char = word[colIdx] || '';
                     const bg = isSubmitted ? getTileBg(word, colIdx) : '#ffffff';
@@ -130,8 +139,7 @@ export default function Henordle() {
                         key={colIdx}
                         className="win-inset"
                         style={{
-                          width: 40,
-                          height: 40,
+                          flex: 1,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -151,19 +159,8 @@ export default function Henordle() {
             })}
           </div>
 
-          {status === 'LOST' && (
-            <div style={{ textAlign: 'center', marginBottom: 12 }}>
-              <div style={{ fontWeight: 'bold', color: '#cc0000', marginBottom: 6 }}>
-                Game Over! The word was SCUM
-              </div>
-              <button className="win-outset-btn" onClick={restartGame} style={{ padding: '4px 16px' }}>
-                Restart Game
-              </button>
-            </div>
-          )}
-
           {/* On-Screen Keyboard */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, alignItems: 'center', marginTop: 8 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, alignItems: 'center', marginTop: 4 }}>
             {keyboard.map((row, rIdx) => (
               <div key={rIdx} style={{ display: 'flex', gap: 4 }}>
                 {row.map((k) => (
@@ -172,7 +169,7 @@ export default function Henordle() {
                     className="win-outset-btn"
                     style={{
                       minWidth: k.length > 1 ? 48 : 30,
-                      height: 32,
+                      height: 30,
                       fontSize: 12,
                       fontFamily: 'var(--font-system)'
                     }}
