@@ -154,7 +154,7 @@ export default function Henordle() {
           {status === 'LOST' && (
             <div style={{ textAlign: 'center', marginBottom: 12 }}>
               <div style={{ fontWeight: 'bold', color: '#cc0000', marginBottom: 6 }}>
-                Game Over! The word was DELTA
+                Game Over! The word was SCUM
               </div>
               <button className="win-outset-btn" onClick={restartGame} style={{ padding: '4px 16px' }}>
                 Restart Game

@@ -203,13 +203,13 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
                 marginRight: 4
               }}
             >
-              DELTA<span style={{ color: '#c0c0c0', marginLeft: 2 }}>95</span>
+              SCUM<span style={{ color: '#c0c0c0', marginLeft: 2 }}>OS</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', width: 200 }}>
               <MenuListItem onClick={() => handleStartItemClick('mySystem')}>
                 <Computer style={{ width: 20, height: 20, marginRight: 8 }} />
-                <span>DELTAOS Explorer</span>
+                <span>SCUMOS Explorer</span>
               </MenuListItem>
               <MenuListItem onClick={() => handleStartItemClick('photos')}>
                 <MediaCd style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -303,7 +303,7 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
                 <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                   <Computer style={{ width: 42, height: 42 }} />
                   <div>
-                    <p style={{ fontWeight: 'bold', fontSize: 13 }}>Are you sure you want to exit DELTAOS?</p>
+                    <p style={{ fontWeight: 'bold', fontSize: 13 }}>Are you sure you want to exit SCUMOS?</p>
                     <p style={{ fontSize: 11, color: '#444', marginTop: 4 }}>
                       You can reboot the system anytime or return to your 3D desktop workspace.
                     </p>

@@ -128,7 +128,7 @@ export default function OregonTrail() {
       </div>
 
       <div style={{ fontSize: 10, color: '#888', textAlign: 'center' }}>
-        The Oregon Trail — DeltaOS Win95 Edition
+        The Oregon Trail — ScumOS Win95 Edition
       </div>
     </div>
   );

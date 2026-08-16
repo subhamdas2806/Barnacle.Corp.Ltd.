@@ -204,7 +204,7 @@ export default function MySystem({ isEmbedded = false }) {
               System Online
             </h1>
             <p className="retro-subtitle pixel-distort" style={{ fontSize: 24, margin: '8px 0 16px 0' }}>
-              I'm DELTAOS Admin
+              I'm SCUMOS Admin
             </p>
 
             <p style={{ fontSize: 13.5, marginBottom: 14, color: '#222' }}>
