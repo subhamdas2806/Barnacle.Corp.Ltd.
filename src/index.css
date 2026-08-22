@@ -407,73 +407,120 @@ nav,
   box-shadow: inset 1px 1px #000000, inset -1px -1px #dfdfdf;
 }
 
-/* Taskbar */
+/* Taskbar - authentic Win95 */
 .taskbar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 32px;
+  height: 30px;
   background-color: var(--win-gray);
-  box-shadow: inset 0 1px #ffffff, inset 0 2px #dfdfdf;
+  box-shadow: inset 0 1px #ffffff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 2px 8px;
+  gap: 3px;
+  padding: 2px;
   z-index: 9999;
 }
 
-.start-btn {
-  display: flex;
+.win-task-btn {
+  height: 26px;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 24px;
   padding: 0 8px;
+  background-color: var(--win-gray);
+  border: none;
+  border-radius: 0;
+  font-family: 'ms_sans_serif', 'MS Sans Serif', Tahoma, 'Pixelify Sans', sans-serif !important;
+  font-size: 11px !important;
+  -webkit-font-smoothing: none !important;
+  font-smooth: never !important;
+  color: #000000;
+  box-shadow:
+    inset -1px -1px #000000,
+    inset 1px 1px #ffffff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Open-window task buttons: fixed uniform size */
+.task-app-btn {
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.start-btn {
+  min-width: 74px;
   font-weight: bold;
-  font-size: 14px;
-}
-
-.start-flag {
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr;
-  width: 14px;
-  height: 12px;
-  gap: 1px;
-}
-
-.start-flag span {
-  display: block;
 }
 
 .taskbar-apps {
   display: flex;
-  gap: 4px;
-  flex: 1;
-  margin: 0 8px;
+  align-items: center;
+  gap: 3px;
+  height: 100%;
   overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.taskbar-app-btn {
-  height: 24px;
-  min-width: 120px;
-  max-width: 180px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 6px;
-  font-size: 13px;
-  white-space: nowrap;
+.taskbar-apps::-webkit-scrollbar {
+  display: none;
+}
+
+.win-task-btn.pressed,
+.win-task-btn:active {
+  box-shadow:
+    inset 1px 1px #000000,
+    inset -1px -1px #ffffff,
+    inset 2px 2px #808080,
+    inset -2px -2px #dfdfdf;
+  background-color: transparent;
+  background-image: repeating-conic-gradient(#dfdfdf 0% 25%, #c0c0c0 0% 50%);
+  background-size: 2px 2px;
+}
+
+.start-btn.pressed,
+.start-btn:active {
+  padding: 1px 7px 0 9px;
+}
+
+.win-task-btn svg {
+  flex-shrink: 0;
+}
+
+.task-btn-label {
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 130px;
 }
 
 .system-tray {
-  height: 24px;
+  height: 22px;
+  margin-left: auto;
   padding: 0 8px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13px;
+  gap: 8px;
+  flex-shrink: 0;
+  font-family: 'ms_sans_serif', 'MS Sans Serif', Tahoma, 'Pixelify Sans', sans-serif !important;
+  font-size: 11px !important;
+  -webkit-font-smoothing: none !important;
+  font-smooth: never !important;
+  box-shadow:
+    inset 1px 1px #808080,
+    inset -1px -1px #ffffff;
+}
+
+.tray-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 /* Start Menu Dropdown */

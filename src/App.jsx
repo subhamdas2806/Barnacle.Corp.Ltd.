@@ -14,8 +14,14 @@ import {
   CdMusic
 } from '@react95/icons';
 
-const DoomIcon = () => (
-  <img src="/doom-icon.png" width={34} height={34} style={{ imageRendering: 'pixelated', display: 'block' }} alt="Doom" />
+const DoomIcon = ({ width = 34, height = 34, style, ...rest }) => (
+  <img
+    src="/doom-icon.png"
+    width={width}
+    height={height}
+    style={{ imageRendering: 'pixelated', display: 'block', ...style }}
+    {...rest}
+  />
 );
 
 import Window from './components/Window';
@@ -72,6 +78,17 @@ function InnerApp() {
   const [appZIndices, setAppZIndices] = useState({ mySystem: 10 });
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [isMuted, setIsMuted] = useState(false);
+
+  // My System opens centered at ~80% of the desktop on load
+  const [mySystemLayout] = useState(() => {
+    const el = document.getElementById('root');
+    const w = el ? el.clientWidth : window.innerWidth;
+    const h = el ? el.clientHeight : window.innerHeight;
+    return {
+      pos: { x: Math.round(w * 0.1), y: Math.round(h * 0.08) },
+      size: { width: Math.round(w * 0.8), height: Math.round(h * 0.8) }
+    };
+  });
 
   useEffect(() => {
     const handlePopState = () => {
@@ -201,8 +218,8 @@ function InnerApp() {
             onFocus={focusApp}
             isActive={activeAppId === appDef.id}
             zIndex={appZIndices[appDef.id] || 1}
-            defaultPos={appDef.defaultPos}
-            defaultSize={appDef.defaultSize}
+            defaultPos={appDef.id === 'mySystem' ? mySystemLayout.pos : appDef.defaultPos}
+            defaultSize={appDef.id === 'mySystem' ? mySystemLayout.size : appDef.defaultSize}
           >
             <AppComponent />
           </Window>

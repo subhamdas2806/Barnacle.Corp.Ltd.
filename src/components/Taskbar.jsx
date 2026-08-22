@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Button, MenuList, MenuListItem, Separator, Frame } from 'react95';
+import { Button, MenuList, MenuListItem, Separator, Frame } from 'react95';
 import {
   Computer,
   Mspaint,
@@ -11,7 +11,6 @@ import {
   Mute,
   Unmute,
   MsDos,
-  HelpBook,
   Shell3240
 } from '@react95/icons';
 import { playClickSound, playWin95Startup, playErrorBeep } from '../utils/audio';
@@ -49,112 +48,49 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
   return (
     <>
       {/* Bottom Taskbar Container */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: 38,
-          zIndex: 9999,
-          background: '#c0c0c0',
-          borderTop: '2px solid #ffffff',
-          boxShadow: 'inset 0 1px 0 #dfdfdf',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '2px 4px'
-        }}
-      >
+      <div className="taskbar">
         {/* Start Button */}
-        <Button
-          active={isStartOpen}
+        <button
+          type="button"
+          className={`win-task-btn start-btn ${isStartOpen ? 'pressed' : ''}`}
           onClick={() => {
             playClickSound();
             setIsStartOpen(!isStartOpen);
           }}
-          style={{
-            fontWeight: 'bold',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            height: 30,
-            marginRight: 6,
-            padding: '0 6px'
-          }}
         >
-          <Shell3240 variant="16x16_4" style={{ width: 16, height: 16 }} />
+          <Shell3240 variant="16x16_4" style={{ width: 16, height: 16, flexShrink: 0 }} />
           <span>Start</span>
-        </Button>
+        </button>
 
         {/* Taskbar Running Apps List */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 4,
-            flex: 1,
-            overflowX: 'auto',
-            height: '100%',
-            alignItems: 'center'
-          }}
-        >
+        <div className="taskbar-apps">
           {openApps.map((app) => {
             const IconComp = app.icon;
             const isActive = activeAppId === app.id && !app.minimized;
             return (
-              <Button
+              <button
                 key={app.id}
-                active={isActive}
+                type="button"
+                className={`win-task-btn task-app-btn ${isActive ? 'pressed' : ''}`}
                 onClick={() => {
                   playClickSound();
                   onAppClick(app.id);
-                }}
-                style={{
-                  height: 30,
-                  minWidth: 120,
-                  maxWidth: 180,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  padding: '0 8px',
-                  fontWeight: isActive ? 'bold' : 'normal',
-                  fontSize: 12,
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis'
                 }}
               >
                 {IconComp && (
                   <IconComp style={{ width: 16, height: 16, flexShrink: 0 }} />
                 )}
-                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{app.title}</span>
-              </Button>
+                <span className="task-btn-label">{app.title}</span>
+              </button>
             );
           })}
         </div>
 
         {/* System Tray Clock & Sound Toggle */}
-        <Frame
-          variant="well"
-          style={{
-            height: 28,
-            padding: '0 8px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontSize: 12,
-            background: '#c0c0c0',
-            marginLeft: 6
-          }}
-        >
+        <div className="system-tray">
           <button
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              padding: 0
-            }}
+            type="button"
+            className="tray-btn"
             onClick={() => {
               const newMute = !isMuted;
               setIsMuted(newMute);
@@ -169,7 +105,7 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
             )}
           </button>
           <span>{timeStr}</span>
-        </Frame>
+        </div>
       </div>
 
       {/* Start Menu Dropdown */}
@@ -177,7 +113,7 @@ export default function Taskbar({ openApps, activeAppId, onAppClick, onLaunchApp
         <div
           style={{
             position: 'absolute',
-            bottom: 38,
+            bottom: 30,
             left: 0,
             display: 'flex',
             zIndex: 10000,

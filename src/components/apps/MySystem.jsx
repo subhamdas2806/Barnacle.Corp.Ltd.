@@ -4,7 +4,7 @@ import { emitBarnacleEvent } from '../../utils/postMessage';
 
 export default function MySystem({ isEmbedded = false }) {
   const [activeTab, setActiveTab] = useState('HOME');
-  const [formSent, setFormSent] = useState(false);
+  const [formStatus, setFormStatus] = useState('idle'); // idle | sending | sent | error
   const [formData, setFormData] = useState({ name: '', email: '', company: '', message: '' });
 
   const handleDownloadResume = () => {
@@ -52,13 +52,31 @@ export default function MySystem({ isEmbedded = false }) {
     printWin.print();
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFormSent(true);
-    setTimeout(() => {
-      setFormSent(false);
+    setFormStatus('sending');
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/dassubham7756@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || '—',
+          message: formData.message,
+          _subject: `[Portfolio] Message from ${formData.name}`,
+          _template: 'table',
+          _captcha: 'false',
+          _replyto: formData.email,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || (data && data.success === 'false')) throw new Error('send failed');
+      setFormStatus('sent');
       setFormData({ name: '', email: '', company: '', message: '' });
-    }, 4000);
+    } catch {
+      setFormStatus('error');
+    }
   };
 
   // Minimal Home Page (Matching Image 3)
@@ -532,11 +550,23 @@ export default function MySystem({ isEmbedded = false }) {
               </a>
             </p>
 
-            {formSent ? (
+            {formStatus === 'sent' ? (
               <div className="win-inset-gray" style={{ padding: 20, textAlign: 'center', color: '#008000' }}>
                 <CheckCircle2 size={32} style={{ marginBottom: 8 }} />
                 <h3 style={{ fontSize: 16, fontWeight: 'bold' }}>Packet Delivered!</h3>
                 <p style={{ fontSize: 12, marginTop: 4 }}>Thank you for reaching out. I'll get back to you shortly.</p>
+                <button type="button" className="win-outset-btn" style={{ marginTop: 12, padding: '4px 14px', fontWeight: 'bold' }} onClick={() => setFormStatus('idle')}>
+                  Send Another
+                </button>
+              </div>
+            ) : formStatus === 'error' ? (
+              <div className="win-inset-gray" style={{ padding: 20, textAlign: 'center', color: '#a00000' }}>
+                <Mail size={32} style={{ marginBottom: 8 }} />
+                <h3 style={{ fontSize: 16, fontWeight: 'bold' }}>Transmission Failed</h3>
+                <p style={{ fontSize: 12, marginTop: 4 }}>Something went wrong. Please try again or email me directly.</p>
+                <button type="button" className="win-outset-btn" style={{ marginTop: 12, padding: '4px 14px', fontWeight: 'bold' }} onClick={() => setFormStatus('idle')}>
+                  Try Again
+                </button>
               </div>
             ) : (
               <form onSubmit={handleFormSubmit}>
@@ -579,8 +609,13 @@ export default function MySystem({ isEmbedded = false }) {
                 ></textarea>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-                  <button type="submit" className="win-outset-btn" style={{ padding: '6px 20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <Send size={14} /> Send Message
+                  <button
+                    type="submit"
+                    className="win-outset-btn"
+                    disabled={formStatus === 'sending'}
+                    style={{ padding: '6px 20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 6, opacity: formStatus === 'sending' ? 0.6 : 1 }}
+                  >
+                    <Send size={14} /> {formStatus === 'sending' ? 'Transmitting...' : 'Send Message'}
                   </button>
                   <span style={{ fontSize: 11, color: '#555' }}>
                     All messages get forwarded straight to my personal email | * = required
