@@ -197,6 +197,7 @@ function InnerApp() {
             icon={appDef.icon}
             onClose={handleCloseApp}
             onMinimize={handleMinimizeApp}
+            onMaximize={() => {}}
             onFocus={focusApp}
             isActive={activeAppId === appDef.id}
             zIndex={appZIndices[appDef.id] || 1}

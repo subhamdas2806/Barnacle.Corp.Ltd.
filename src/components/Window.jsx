@@ -1,10 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  Window as R95Window,
-  WindowHeader,
-  WindowContent,
-  Button
-} from 'react95';
 
 export default function Window({
   id,
@@ -13,6 +7,7 @@ export default function Window({
   children,
   onClose,
   onMinimize,
+  onMaximize,
   onFocus,
   isActive,
   zIndex,
@@ -26,7 +21,6 @@ export default function Window({
   const windowRef = useRef(null);
 
   const getContainerBounds = () => {
-    // The container is #root — get its bounding rect
     const root = document.getElementById('root');
     if (!root) return { width: window.innerWidth, height: window.innerHeight };
     const rect = root.getBoundingClientRect();
@@ -37,7 +31,7 @@ export default function Window({
     const { width: cw, height: ch } = getContainerBounds();
     const TASKBAR_HEIGHT = 32;
     const clampedX = Math.max(0, Math.min(x, cw - defaultSize.width));
-    const clampedY = Math.max(0, Math.min(y, ch - TASKBAR_HEIGHT - 24)); // keep titlebar visible
+    const clampedY = Math.max(0, Math.min(y, ch - TASKBAR_HEIGHT - 24));
     return { x: clampedX, y: clampedY };
   };
 
@@ -82,87 +76,71 @@ export default function Window({
 
   return (
     <>
-      {/* Actual Window */}
       <div
         ref={windowRef}
+        className="win-window"
         onMouseDown={() => onFocus(id)}
         style={{
-          position: 'absolute',
           left: pos.x,
           top: pos.y,
           width: defaultSize.width,
           height: defaultSize.height,
-          zIndex: zIndex,
-          display: 'flex',
-          flexDirection: 'column'
+          zIndex: zIndex
         }}
       >
-        <R95Window
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-          }}
+        <div
+          className={`win-titlebar ${isActive ? 'active' : 'inactive'}`}
+          onMouseDown={handleMouseDown}
         >
-          <WindowHeader
-            active={isActive}
-            onMouseDown={handleMouseDown}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              userSelect: 'none',
-              cursor: 'move'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, overflow: 'hidden' }}>
-              {IconComponent && (
-                <IconComponent style={{ width: 16, height: 16, flexShrink: 0 }} />
-              )}
-              <span style={{ fontSize: 13, fontWeight: 'bold', whiteSpace: 'nowrap' }}>{title}</span>
-            </div>
-            <div style={{ display: 'flex', gap: 2 }} onMouseDown={(e) => e.stopPropagation()}>
-              <Button
-                size="sm"
-                square
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onMinimize(id);
-                }}
-                style={{ fontWeight: 'bold', width: 22, height: 22, minWidth: 22 }}
+          <div className="win-title-left">
+            {IconComponent && <IconComponent className="win-title-icon" />}
+            <span className="win-title-text">{title}</span>
+          </div>
+          <div className="win-controls" onMouseDown={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="win-btn-ctrl"
+              aria-label="Minimize"
+              onClick={(e) => { e.stopPropagation(); onMinimize(id); }}
+            >
+              <span className="win-glyph win-glyph-minimize" />
+            </button>
+            <button
+              type="button"
+              className="win-btn-ctrl"
+              aria-label="Maximize"
+              disabled
+            >
+              <span className="win-glyph win-glyph-maximize" />
+            </button>
+            <button
+              type="button"
+              className="win-btn-ctrl"
+              aria-label="Close"
+              onClick={(e) => { e.stopPropagation(); onClose(id); }}
+            >
+              <svg
+                className="win-glyph win-glyph-close"
+                width="8"
+                height="8"
+                viewBox="0 0 8 8"
+                shapeRendering="crispEdges"
+                aria-hidden="true"
               >
-                _
-              </Button>
-              <Button
-                size="sm"
-                square
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose(id);
-                }}
-                style={{ fontWeight: 'bold', width: 22, height: 22, minWidth: 22 }}
-              >
-                ✕
-              </Button>
-            </div>
-          </WindowHeader>
+                <path
+                  fill="#000000"
+                  d="M0 0h2v1H0zM6 0h2v1H6zM0 1h2v1H0zM6 1h2v1H6zM1 2h2v1H1zM5 2h2v1H5zM1 3h2v1H1zM5 3h2v1H5zM2 4h4v1H2zM2 5h4v1H2zM1 6h2v1H1zM5 6h2v1H5zM1 7h2v1H1zM5 7h2v1H5z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-          <WindowContent
-            style={{
-              flex: 1,
-              padding: 0,
-              overflow: 'hidden',
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            {children}
-          </WindowContent>
-        </R95Window>
+        <div className="win-body">
+          {children}
+        </div>
       </div>
 
-      {/* Windows 95 Wireframe Ghost Dragging Box */}
       {isDragging && (
         <div
           style={{

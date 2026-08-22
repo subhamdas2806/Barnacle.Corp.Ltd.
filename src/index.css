@@ -1,3 +1,22 @@
+/* Authentic Win95 bitmap fonts (from react95, self-registered) */
+@font-face {
+  font-family: 'ms_sans_serif';
+  src: url('/fonts/ms_sans_serif.woff2') format('woff2'),
+       url('/fonts/ms_sans_serif.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'ms_sans_serif';
+  src: url('/fonts/ms_sans_serif_bold.woff2') format('woff2'),
+       url('/fonts/ms_sans_serif_bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: block;
+}
+
 :root {
   --win-bg: #008080;
   --win-gray: #c0c0c0;
@@ -213,16 +232,19 @@ nav,
   word-break: break-word;
 }
 
-/* Window Styling - Matching Win95 Authentic Outer Bevel Edge */
+/* Window Styling - Authentic Win95 Outer Bevel Frame (matches reference screenshots) */
 .win-window {
   position: absolute;
   display: flex;
   flex-direction: column;
   background-color: var(--win-gray);
   padding: 3px;
-  border: 1px solid;
-  border-color: #ffffff #000000 #000000 #ffffff;
-  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080, 3px 3px 8px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    inset -1px -1px #000000,
+    inset 1px 1px #dfdfdf,
+    inset -2px -2px #808080,
+    inset 2px 2px #ffffff,
+    3px 3px 8px rgba(0, 0, 0, 0.35);
   min-width: 260px;
   min-height: 180px;
   max-width: calc(100vw - 32px);
@@ -230,70 +252,146 @@ nav,
   border-radius: 0;
 }
 
+/* Title bar: solid navy when active, gray when inactive */
 .win-titlebar {
   height: 20px;
-  background: #000080;
-  color: #ffffff;
+  min-height: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1px 3px 1px 4px;
+  padding: 1px 2px 1px 3px;
   margin-bottom: 3px;
   cursor: move;
+  user-select: none;
+}
+
+.win-titlebar.active {
+  background: #000080;
 }
 
 .win-titlebar.inactive {
   background: #808080;
-  color: #c0c0c0;
 }
 
 .win-title-left {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.win-title-left span {
-  font-family: 'MS Sans Serif', Tahoma, 'Pixelify Sans', Geneva, sans-serif !important;
+.win-title-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+.win-title-text {
+  font-family: 'ms_sans_serif', 'MS Sans Serif', Tahoma, 'Pixelify Sans', sans-serif !important;
   font-size: 12px !important;
   font-weight: bold !important;
-  letter-spacing: 0.3px;
+  letter-spacing: 0;
   -webkit-font-smoothing: none !important;
   -moz-osx-font-smoothing: unset !important;
   font-smooth: never !important;
   color: #ffffff;
 }
 
+.win-titlebar.inactive .win-title-text {
+  color: #dfdfdf;
+}
+
+.win-titlebar.inactive .win-title-icon {
+  opacity: 0.6;
+}
+
+/* Title bar action buttons: 16x14 beveled gray squares */
 .win-controls {
   display: flex;
   gap: 2px;
+  flex-shrink: 0;
 }
 
 .win-btn-ctrl {
-  width: 16px;
-  height: 14px;
-  font-size: 11px;
-  font-weight: bold;
+  width: 16px !important;
+  height: 14px !important;
+  min-width: 16px !important;
+  min-height: 14px !important;
+  padding: 0 !important;
+  margin: 0 !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
   background-color: var(--win-gray);
-  border: 1px solid;
-  border-color: #ffffff #000000 #000000 #ffffff;
-  box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+  border: none;
+  border-radius: 0;
+  box-shadow:
+    inset -1px -1px #000000,
+    inset 1px 1px #ffffff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
   cursor: pointer;
   color: #000000;
+  line-height: 1;
 }
 
-.win-btn-ctrl:active {
-  border-color: #000000 #ffffff #ffffff #000000;
-  box-shadow: inset 1px 1px #808080, inset -1px -1px #dfdfdf;
-  padding-top: 1px;
-  padding-left: 1px;
+.win-btn-ctrl:active,
+.win-btn-ctrl.pressed {
+  box-shadow:
+    inset 1px 1px #000000,
+    inset -1px -1px #ffffff,
+    inset 2px 2px #808080,
+    inset -2px -2px #dfdfdf;
+}
+
+.win-btn-ctrl:active .win-glyph {
+  transform: translate(1px, 1px);
+}
+
+/* Disabled (visual-only) control: no press feedback */
+.win-btn-ctrl:disabled {
+  cursor: default;
+}
+
+/* Button glyphs: exact Win95 pixel geometry, absolutely positioned */
+.win-btn-ctrl {
+  position: relative;
+}
+
+.win-glyph {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Minimize: 6x2 black bar on the floor, horizontally centered */
+.win-glyph-minimize {
+  left: 5px;
+  bottom: 3px;
+  width: 6px;
+  height: 2px;
+  background: #000000;
+}
+
+/* Maximize: 8x8 hollow square, dead-center (integer offsets only = crisp) */
+.win-glyph-maximize {
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border: 1px solid #808080;
+  background: transparent;
+}
+
+/* Close: 8x8 Marlett X, dead-center (integer offsets only = crisp) */
+.win-glyph-close {
+  left: 50%;
+  top: 50%;
+  margin: -4px 0 0 -4px;
 }
 
 .win-body {
@@ -579,4 +677,61 @@ nav,
   resize: vertical;
   margin-top: 4px;
   margin-bottom: 16px;
+}
+
+/* Win95 Toolbar (Résumé-style row under the title bar) */
+.win-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 4px;
+  background-color: var(--win-gray);
+}
+
+.win-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 23px;
+  padding: 0 8px;
+  font-family: 'ms_sans_serif', 'MS Sans Serif', Tahoma, 'Pixelify Sans', sans-serif !important;
+  font-size: 12px !important;
+  -webkit-font-smoothing: none !important;
+  font-smooth: never !important;
+  color: #000000;
+  background-color: var(--win-gray);
+  border: none;
+  border-radius: 0;
+  box-shadow:
+    inset -1px -1px #000000,
+    inset 1px 1px #ffffff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.win-toolbar-btn svg,
+.win-toolbar-btn img {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.win-toolbar-btn:active {
+  box-shadow:
+    inset 1px 1px #000000,
+    inset -1px -1px #ffffff,
+    inset 2px 2px #808080,
+    inset -2px -2px #dfdfdf;
+  padding-top: 1px;
+}
+
+.win-toolbar-sep {
+  width: 2px;
+  height: 20px;
+  margin: 0 3px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #ffffff;
 }
